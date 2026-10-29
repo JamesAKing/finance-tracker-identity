@@ -1,6 +1,33 @@
-Finance Tracker Identity Service
+# Finance Tracker Identity Service
 
-## Quick Start
+Keycloak and Postgres providing authentication for the Finance Tracker app. Local development only.
 
-1.  Run `docker compose up -d`
-2.  Access Keycloak Admin Console at `http://localhost:8080`
+## Setup
+
+1. Create your env file and set the passwords:
+
+   ```
+   cp .env.example .env
+   ```
+
+2. Start the services:
+
+   ```
+   docker compose up -d
+   ```
+
+3. Open `http://localhost:8080` and log in as `admin` with `KC_ADMIN_PASSWORD`.
+
+## Realm
+
+The `finance-tracker` realm is imported from `keycloak/realm.json` on first start.
+
+- Client: `finance-tracker-web` (React app, expects `http://localhost:5173`)
+- Issuer: `http://localhost:8080/realms/finance-tracker`
+- JWKS: `http://localhost:8080/realms/finance-tracker/protocol/openid-connect/certs`
+
+To apply changes to `realm.json`, reset the stack (this deletes all Keycloak data):
+
+```
+docker compose down -v && docker compose up -d
+```
