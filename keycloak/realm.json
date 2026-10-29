@@ -16,23 +16,22 @@
   "ssoSessionMaxLifespan": 36000,
   "clients": [
     {
-      "clientId": "finance-tracker-web",
-      "name": "Finance Tracker Web",
-      "description": "React single-page app (public client, Authorization Code + PKCE)",
+      "clientId": "finance-tracker-api",
+      "name": "Finance Tracker API",
       "enabled": true,
       "protocol": "openid-connect",
-      "publicClient": true,
+      "publicClient": false,
+      "secret": "${API_CLIENT_SECRET}",
       "standardFlowEnabled": true,
       "implicitFlowEnabled": false,
       "directAccessGrantsEnabled": false,
       "serviceAccountsEnabled": false,
-      "rootUrl": "http://localhost:5173",
-      "baseUrl": "/",
-      "redirectUris": ["http://localhost:5173/*"],
-      "webOrigins": ["http://localhost:5173"],
+      "rootUrl": "${WEB_ORIGIN}",
+      "redirectUris": ["${WEB_ORIGIN}/api/auth/callback"],
+      "webOrigins": [],
       "attributes": {
         "pkce.code.challenge.method": "S256",
-        "post.logout.redirect.uris": "http://localhost:5173/*"
+        "post.logout.redirect.uris": "${WEB_ORIGIN}/*"
       }
     }
   ]
