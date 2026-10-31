@@ -8,7 +8,7 @@
   "loginWithEmailAllowed": true,
   "duplicateEmailsAllowed": false,
   "resetPasswordAllowed": true,
-  "verifyEmail": false,
+  "verifyEmail": true,
   "rememberMe": true,
   "bruteForceProtected": true,
   "accessTokenLifespan": 300,
@@ -34,5 +34,15 @@
         "post.logout.redirect.uris": "${WEB_ORIGIN}/*"
       }
     }
-  ]
+  ],
+  "smtpServer": {
+    "host": "mailpit",
+    "port": "1025",
+    "from": "no-reply@finance-tracker.local",
+    "fromDisplayName": "Finance Tracker",
+    "auth": "false",
+    "ssl": "false",
+    "starttls": "false",
+    "passwordPolicy": "length(7) and notUsername(undefined) and notEmail(undefined)"
+  }
 }
