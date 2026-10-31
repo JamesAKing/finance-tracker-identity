@@ -18,11 +18,13 @@ Keycloak and Postgres providing authentication for the Finance Tracker app. Loca
 
 3. Open `http://localhost:8080` and log in as `admin` with `KC_ADMIN_PASSWORD`.
 
+Emails Keycloak sends (e.g. verification) are caught by Mailpit: `http://localhost:8025`.
+
 ## Realm
 
 The `finance-tracker` realm is imported from `keycloak/realm.json` on first start.
 
-- Client: `finance-tracker-web` (React app, expects `http://localhost:5173`)
+- Client: `finance-tracker-api` (confidential client used by the service; redirect URI `${WEB_ORIGIN}/api/auth/callback`)
 - Issuer: `http://localhost:8080/realms/finance-tracker`
 - JWKS: `http://localhost:8080/realms/finance-tracker/protocol/openid-connect/certs`
 
