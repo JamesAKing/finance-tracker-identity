@@ -28,6 +28,7 @@ services:
       KC_BOOTSTRAP_ADMIN_PASSWORD: ${KC_ADMIN_PASSWORD:?Set KC_ADMIN_PASSWORD in .env}
       API_CLIENT_SECRET: ${API_CLIENT_SECRET:?Set API_CLIENT_SECRET in .env}
       WEB_ORIGIN: ${WEB_ORIGIN:-http://localhost:5173}
+      KC_HOSTNAME: http://localhost:8080
     command: start-dev --import-realm
     ports:
       - "8080:8080"
@@ -36,6 +37,9 @@ services:
     depends_on:
       keycloak-db:
         condition: service_healthy
+    networks:
+      - default
+      - finance-tracker
 
   mailpit:
     image: axllent/mailpit
@@ -49,6 +53,10 @@ services:
     environment:
       MP_MAX_MESSAGES: 5000
       MP_DATABASE: /data/mailpit.db
+
+networks:
+  finance-tracker:
+    name: finance-tracker
 
 volumes:
   keycloak_data:
