@@ -1,0 +1,27 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [master]
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+
+      - uses: hadolint/hadolint-action@06be81baf89a55ffd0e24b8f04a4185738dd3387
+        with:
+          dockerfile: Dockerfile
+
+      - run: shellcheck keycloak/entrypoint.sh scripts/smoke-test.sh
+
+      - run: jq empty keycloak/realm.json
+
+      - run: docker build -t finance-tracker-identity:test .
+
+      - run: scripts/smoke-test.sh finance-tracker-identity:test
