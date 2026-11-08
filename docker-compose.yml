@@ -29,6 +29,14 @@ services:
       API_CLIENT_SECRET: ${API_CLIENT_SECRET:?Set API_CLIENT_SECRET in .env}
       WEB_ORIGIN: ${WEB_ORIGIN:-http://localhost:5173}
       KC_HOSTNAME: http://localhost:8080
+      SMTP_HOST: mailpit
+      SMTP_PORT: "1025"
+      SMTP_FROM: no-reply@finance-tracker.local
+      SMTP_AUTH: "false"
+      SMTP_USER: ""
+      SMTP_PASSWORD: ""
+      SMTP_SSL: "false"
+      SMTP_STARTTLS: "false"
     command: start-dev --import-realm
     ports:
       - "8080:8080"

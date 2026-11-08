@@ -11,6 +11,11 @@
   "verifyEmail": true,
   "rememberMe": true,
   "bruteForceProtected": true,
+  "failureFactor": 10,
+  "permanentLockout": false,
+  "waitIncrementSeconds": 60,
+  "maxFailureWaitSeconds": 900,
+  "passwordPolicy": "length(12) and maxLength(128) and notUsername and notEmail",
   "accessTokenLifespan": 300,
   "ssoSessionIdleTimeout": 1800,
   "ssoSessionMaxLifespan": 36000,
@@ -27,7 +32,9 @@
       "directAccessGrantsEnabled": false,
       "serviceAccountsEnabled": false,
       "rootUrl": "${WEB_ORIGIN}",
-      "redirectUris": ["${WEB_ORIGIN}/api/auth/callback"],
+      "redirectUris": [
+        "${WEB_ORIGIN}/api/auth/callback"
+      ],
       "webOrigins": [],
       "attributes": {
         "pkce.code.challenge.method": "S256",
@@ -36,13 +43,14 @@
     }
   ],
   "smtpServer": {
-    "host": "mailpit",
-    "port": "1025",
-    "from": "no-reply@finance-tracker.local",
+    "host": "${SMTP_HOST}",
+    "port": "${SMTP_PORT}",
+    "from": "${SMTP_FROM}",
     "fromDisplayName": "Finance Tracker",
-    "auth": "false",
-    "ssl": "false",
-    "starttls": "false",
-    "passwordPolicy": "length(7) and notUsername(undefined) and notEmail(undefined)"
+    "auth": "${SMTP_AUTH}",
+    "user": "${SMTP_USER}",
+    "password": "${SMTP_PASSWORD}",
+    "ssl": "${SMTP_SSL}",
+    "starttls": "${SMTP_STARTTLS}"
   }
 }
