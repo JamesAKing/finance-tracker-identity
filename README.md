@@ -110,17 +110,23 @@ The issuer always comes from `KC_HOSTNAME`. Request headers can't change it.
   - the realm's password policy, brute force protection and SMTP settings are applied;
   - the redirect URI and client secret came from the environment and the secret file.
 
-`.github/workflows/images.yml` builds the image on every PR and scans it with Trivy. It fails
-on high or critical vulnerabilities that have a fix. On `master`, it also pushes the image.
+`.github/workflows/images.yml` builds the image on every PR and scans it with Trivy. It sends
+every high and critical vulnerability to the Security tab, and fails on any that has a fix and
+no exception (see below). On `master`, it also pushes the image.
 
 All GitHub Actions are pinned to a commit SHA. Dependabot (`.github/dependabot.yml`) opens weekly
 PRs to update the Keycloak, Postgres and Mailpit images, and the actions.
 
 ### Known vulnerability exceptions
 
-`.trivyignore` lists vulnerabilities that the scan skips. Each has an end date (`exp:`). After
-that date, the scan fails again, so the exception has to be checked.
+Every scan uploads all high and critical vulnerabilities to the repo's **Security** tab
+(Security → Code scanning). Nothing is left out there. An open alert stays visible until the
+image no longer has the problem.
 
-| CVE              | Why it is skipped                                                                 | Until      |
-| ---------------- | --------------------------------------------------------------------------------- | ---------- |
+`.trivyignore` only controls which of those may still let the image be pushed. Each entry has
+an end date (`exp:`). After that date, the image push fails again, so the exception has to be
+checked.
+
+| CVE              | Why it doesn't block the push                                                    | Until      |
+| ---------------- | -------------------------------------------------------------------------------- | ---------- |
 | CVE-2026-102554  | Denial of service in `guava` 33.6.0, which Keycloak bundles. Keycloak 26.8.1 and 26.8.2 both ship it, so it can't be fixed here. Remove it when Keycloak updates `guava` to 33.7.2 or later | 2026-12-08 |
