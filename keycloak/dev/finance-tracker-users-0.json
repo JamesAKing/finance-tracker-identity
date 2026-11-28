@@ -1,0 +1,20 @@
+{
+  "realm": "finance-tracker",
+  "users": [
+    {
+      "username": "docker-test@example.test",
+      "email": "docker-test@example.test",
+      "firstName": "Docker",
+      "lastName": "Test",
+      "emailVerified": true,
+      "enabled": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "T773d410f747a4187!a",
+          "temporary": false
+        }
+      ]
+    }
+  ]
+}

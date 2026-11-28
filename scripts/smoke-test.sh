@@ -22,7 +22,7 @@ chmod 644 "$secrets_dir"/*
 docker network create "$network" >/dev/null
 docker run -d --name smoke-db --network "$network" \
   -e POSTGRES_DB=keycloak -e POSTGRES_USER=keycloak -e POSTGRES_PASSWORD=db-password \
-  postgres:17-alpine >/dev/null
+  postgres:19-alpine >/dev/null
 
 docker run -d --name smoke-keycloak --network "$network" -p 18080:8080 \
   -v "$secrets_dir:/run/secrets:ro" \
