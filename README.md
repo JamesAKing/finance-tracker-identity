@@ -42,6 +42,9 @@ The `finance-tracker` realm is imported from `keycloak/realm.json` on first star
 - Issuer: `http://localhost:8080/realms/finance-tracker`
 - JWKS: `http://localhost:8080/realms/finance-tracker/protocol/openid-connect/certs`
 
+Local docker compose also imports a test user from `keycloak/dev/finance-tracker-users-0.json`.
+The production image only copies `realm.json`, so the test user is never shipped.
+
 To apply changes to `realm.json`, reset the stack (this deletes all Keycloak data):
 
 ```
