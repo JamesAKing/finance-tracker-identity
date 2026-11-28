@@ -1,6 +1,6 @@
 services:
   keycloak-db:
-    image: postgres:17-alpine
+    image: postgres:19-alpine
     container_name: keycloak-db
     environment:
       POSTGRES_DB: keycloak
